@@ -91,5 +91,17 @@ EOF  help  quit
 (hbnb) 
 $
 ```
+## Console commands
+| Command   | Usage                                       | Description                                      |
+| --------- | ------------------------------------------- | ------------------------------------------------ |
+| `quit`    | `quit`                                      | Exit the program                                 |
+| `EOF`     | `Ctrl+D`                                    | Exit the program                                 |
+| `help`    | `help [command]`                            | Show help about a command                        |
+| `create`  | `create <class>`                            | Create a new instance, save it, and print the id |
+| `show`    | `show <class> <id>`                         | Print the string representation of an instance   |
+| `destroy` | `destroy <class> <id>`                      | Delete an instance based on class and id         |
+| `all`     | `all [class]`                               | Show all instances, or all instances of a class  |
+| `update`  | `update <class> <id> <attribute> "<value>"` | Update attributes of an instance                 |
+| `count`   | `<class>.count()`                           | Retrieve the number of instances of a class      |
 
 
