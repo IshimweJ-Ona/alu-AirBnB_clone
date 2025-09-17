@@ -1,5 +1,9 @@
 #!/usr/bin/python3
+"""
+BaseModel module defines all common attributes/methods for other classes.
+"""
+
+
 class BaseModel:
-    # ... your BaseModel implementation ...
+    """Base class for all models."""
     pass
-  
