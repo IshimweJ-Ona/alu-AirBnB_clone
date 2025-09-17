@@ -4,6 +4,7 @@ This module contains the entry point of the AirBnB command interpreter.
 """
 
 import cmd
+import shlex
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -15,11 +16,6 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    """
-    Command interpreter class for the AirBnB Clone project.
-    Provides a command-line interface to manage AirBnB objects.
-    """
-
     prompt = "(hbnb) "
     __classes = {
         "BaseModel": BaseModel,
@@ -32,30 +28,42 @@ class HBNBCommand(cmd.Cmd):
     }
 
     def do_quit(self, arg):
-        """
-        Quit command to exit the program.
+        """Quit command to exit the program.
         Usage: quit
         """
         return True
 
     def do_EOF(self, arg):
-        """
-        Exit the program using EOF (Ctrl+D / Ctrl+Z).
+        """Exit the program using EOF (Ctrl+D / Ctrl+Z).
         Usage: EOF
         """
         print()
         return True
 
     def emptyline(self):
-        """
-        Do nothing when an empty line is entered.
-        Prevents repeating the last command.
-        """
+        """Do nothing when an empty line is entered."""
         pass
+
+    def do_help(self, arg):
+        """Display help information about commands.
+        Usage: help or help <command>
+        """
+        if arg:
+            func = getattr(self, 'do_' + arg, None)
+            if func:
+                print(func.__doc__ or f"No detailed help for {arg}")
+            else:
+                print(f"No help available for {arg}")
+        else:
+            print("Documented commands (type help <topic>):")
+            commands = [cmd for cmd in dir(self) if cmd.startswith('do_')]
+            for cmd_name in commands:
+                print(f" {cmd_name[3:]}")
 
     def do_create(self, arg):
         """
-        Create a new instance of a given class, saves it, and prints the id.
+        Create a new instance of a given class, saves it,
+        and prints the id.
         Usage: create <class_name>
         """
         if not arg:
@@ -70,7 +78,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         """
-        Show the string representation of an instance based on class and id.
+        Show the string representation of an instance
+        based on class and id.
         Usage: show <class_name> <id>
         """
         args = arg.split()
@@ -92,7 +101,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """
-        Delete an instance based on class name and id, then save the change.
+        Delete an instance based on class name and id,
+        then save the change.
         Usage: destroy <class_name> <id>
         """
         args = arg.split()
@@ -117,7 +127,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Show all string representations of instances.
         Can filter by class name if provided.
-        Usage: all [<class_name>]
+        Usage: all or all <class_name>
         """
         obj_list = []
         obj_dict = storage.all()
@@ -135,10 +145,11 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """
-        Update an instance by adding or updating an attribute, then save.
-        Usage: update <class_name> <id> <attribute_name> "<value>"
+        Update an instance by adding or updating an
+        attribute, then save.
+        Usage: update <class_name> <id> <attribute_name> "<attribute_value>"
         """
-        args = arg.split()
+        args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
             return
@@ -172,4 +183,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
-
