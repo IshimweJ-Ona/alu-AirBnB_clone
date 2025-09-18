@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This module contains the entry point of the AirBnB command interpreter.
+AirBnB command interpreter.
 """
 
 import cmd
@@ -16,6 +16,8 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
+    """Command interpreter for the AirBnB clone project."""
+
     prompt = "(hbnb) "
     __classes = {
         "BaseModel": BaseModel,
@@ -28,15 +30,11 @@ class HBNBCommand(cmd.Cmd):
     }
 
     def do_quit(self, arg):
-        """Quit command to exit the program.
-        Usage: quit
-        """
+        """Quit command to exit the program."""
         return True
 
     def do_EOF(self, arg):
-        """Exit the program using EOF (Ctrl+D / Ctrl+Z).
-        Usage: EOF
-        """
+        """Exit the program using EOF (Ctrl+D / Ctrl+Z)."""
         print()
         return True
 
@@ -44,45 +42,21 @@ class HBNBCommand(cmd.Cmd):
         """Do nothing when an empty line is entered."""
         pass
 
-    def do_help(self, arg):
-        """Display help information about commands.
-        Usage: help or help <command>
-        """
-        if arg:
-            func = getattr(self, 'do_' + arg, None)
-            if func:
-                print(func.__doc__ or f"No detailed help for {arg}")
-            else:
-                print(f"No help available for {arg}")
-        else:
-            print("Documented commands (type help <topic>):")
-            commands = [cmd for cmd in dir(self) if cmd.startswith('do_')]
-            for cmd_name in commands:
-                print(f" {cmd_name[3:]}")
-
     def do_create(self, arg):
-        """
-        Create a new instance of a given class, saves it,
-        and prints the id.
-        Usage: create <class_name>
-        """
+        """Create a new instance of a given class, saves it, and prints the id."""
         if not arg:
             print("** class name missing **")
             return
         if arg not in self.__classes:
             print("** class doesn't exist **")
             return
-        new_instance = self.__classes[arg]()
-        new_instance.save()
-        print(new_instance.id)
+        obj = self.__classes[arg]()
+        obj.save()
+        print(obj.id)
 
     def do_show(self, arg):
-        """
-        Show the string representation of an instance
-        based on class and id.
-        Usage: show <class_name> <id>
-        """
-        args = arg.split()
+        """Show the string representation of an instance."""
+        args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
             return
@@ -100,12 +74,8 @@ class HBNBCommand(cmd.Cmd):
         print(obj_dict[key])
 
     def do_destroy(self, arg):
-        """
-        Delete an instance based on class name and id,
-        then save the change.
-        Usage: destroy <class_name> <id>
-        """
-        args = arg.split()
+        """Delete an instance based on class name and id, then save the change."""
+        args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
             return
@@ -124,31 +94,22 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_all(self, arg):
-        """
-        Show all string representations of instances.
-        Can filter by class name if provided.
-        Usage: all or all <class_name>
-        """
-        obj_list = []
+        """Show all string representations of instances, optionally filtered by class."""
         obj_dict = storage.all()
+        obj_list = []
+
         if not arg:
-            for obj in obj_dict.values():
-                obj_list.append(str(obj))
+            obj_list = [str(obj) for obj in obj_dict.values()]
+        elif arg in self.__classes:
+            obj_list = [str(obj) for k, obj in obj_dict.items() if k.startswith(arg + ".")]
         else:
-            if arg not in self.__classes:
-                print("** class doesn't exist **")
-                return
-            for key, obj in obj_dict.items():
-                if key.startswith(arg + "."):
-                    obj_list.append(str(obj))
+            print("** class doesn't exist **")
+            return
+
         print(obj_list)
 
     def do_update(self, arg):
-        """
-        Update an instance by adding or updating an
-        attribute, then save.
-        Usage: update <class_name> <id> <attribute_name> "<attribute_value>"
-        """
+        """Update an instance by adding or updating an attribute."""
         args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
@@ -170,13 +131,23 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 3:
             print("** value missing **")
             return
+
         obj = obj_dict[key]
         attr_name = args[2]
         attr_value = args[3]
-        try:
-            attr_value = eval(attr_value)
-        except Exception:
-            pass
+
+        if attr_name in ["id", "created_at", "updated_at"]:
+            return
+
+        # Cast value to proper type
+        if attr_value.isdigit():
+            attr_value = int(attr_value)
+        else:
+            try:
+                attr_value = float(attr_value)
+            except ValueError:
+                attr_value = attr_value.strip('"')
+
         setattr(obj, attr_name, attr_value)
         obj.save()
 
