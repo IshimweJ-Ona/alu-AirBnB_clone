@@ -1,7 +1,10 @@
 #!/usr/bin/python3
+"""State class for AirBnB clone."""
+
+
 from models.base_model import BaseModel
 
 
 class State(BaseModel):
-    """State class that inherits from BaseModel."""
-    pass
+    """"State Public class state attributes inherits from BaseModel."""
+    name = ""
