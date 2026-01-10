@@ -1,10 +1,18 @@
 #!/usr/bin/python3
-"""Testfile for engine file storage"""
+"""Unittests for Place class."""
+
+import unittest
+from models.engine.file_storage import FileStorage
 
 
-class FileStorage:
-    """"A simple storage engine placeholder"""
+class TestFileStorage(unittest.TestCase):
+    """Test cases for the Place class."""
 
-    def __init__(self):
-        """Intialize storage."""
-        pass
+    def test_instance(self):
+        """Test that a Place instance can be created."""
+        instance = FileStorage()
+        self.assertIsNotNone(instance)
+
+
+if __name__ == "__main__":
+    unittest.main()

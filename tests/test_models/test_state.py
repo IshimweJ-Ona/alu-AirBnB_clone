@@ -1,10 +1,18 @@
 #!/usr/bin/python3
-"""Testfile for state class"""
+"""Unittests for Place class."""
+
+import unittest
+from models.state import State
 
 
-class State:
-    """A simple placeholder for State model."""
+class TestState(unittest.TestCase):
+    """Test cases for the State class."""
 
-    def __init__(self):
-        """Initialize state instance."""
-        pass
+    def test_instance(self):
+        """Test that a State instance can be created."""
+        instance = State()
+        self.assertIsNotNone(instance)
+
+
+if __name__ == "__main__":
+    unittest.main()

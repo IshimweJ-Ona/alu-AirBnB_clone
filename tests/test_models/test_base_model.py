@@ -2,9 +2,18 @@
 """Test file for BaseModel class."""
 
 
-class BaseModel:
-    """A simple placeholder for the BaseModel model."""
+import unittest
+from models.base_model imprt BaseModel
 
-    def __init__(self):
-        """Initialize BaseModel instance."""
-        pass
+
+class TestBaseModel(unittest.TestCase):
+    """Test cases for BaseModel class."""
+
+    def test_instance(self):
+        """Test that the basemodel instance can be created."""
+        instance = BaseModel()
+        self.assertIsNotNone(instance)
+
+
+if __name__ == "__main__:
+    unittest.main()

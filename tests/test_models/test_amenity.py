@@ -1,10 +1,18 @@
 #!/usr/bin/python3
-"""Testfile for amenity class"""
+"""Unittests for Place class."""
+
+import unittest
+from models.amenity import Amenity
 
 
-class Amenity:
-    """A simple placeholder for the Amenity model."""
+class TestAmenity(unittest.TestCase):
+    """Test cases for the Amenity class."""
 
-    def __init__(self):
-        """Inittialize Amenity  instance."""
-        pass
+    def test_instance(self):
+        """Test that a Amenity instance can be created."""
+        instance = Amenity()
+        self.assertIsNotNone(instance)
+
+
+if __name__ == "__main__":
+    unittest.main()
