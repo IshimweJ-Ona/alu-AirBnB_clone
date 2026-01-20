@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-"""Defines the User Class"""
+"""Defines the User class"""
 
 
 class User:
-    """A simple plaeholder for the user model."""
+    """A simple placeholder for the user model."""
 
     def __init__(self):
         """Initialize User instance."""

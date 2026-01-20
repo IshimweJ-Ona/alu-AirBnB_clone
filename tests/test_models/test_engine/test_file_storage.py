@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Unittests for FileStorage class."""
 
-
 import unittest
 from models.engine.file_storage import FileStorage
 
@@ -17,4 +16,3 @@ class TestFileStorage(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-    

@@ -3,5 +3,5 @@
 
 
 class State:
-    """Initialize Stae instance."""
+    """Initialize State instance."""
     pass

@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-"""Defines the Filestorage class."""
+"""Defines the FileStorage class."""
 
 
 class FileStorage:
-    """A simple placeholder for filestorage engine."""
+    """A simple placeholder for FileStorage engine."""
 
     def __init__(self):
         """Initialize storage engine."""

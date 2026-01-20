@@ -6,5 +6,5 @@ class Place:
     """A simple placeholder for the place model."""
 
     def __init__(self):
-        """Intialize place instance."""
+        """Initialize place instance."""
         pass

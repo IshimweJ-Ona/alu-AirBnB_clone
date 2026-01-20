@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""Unittest for User class."""
-
+"""Unittests for User class."""
 
 import unittest
 from models.user import User
@@ -17,4 +16,3 @@ class TestUser(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-    
