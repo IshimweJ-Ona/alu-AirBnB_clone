@@ -1,19 +1,20 @@
 #!/usr/bin/python3
-"""Test file for BaseModel class."""
+"""Unittets for BaseModel class."""
 
 
 import unittest
-from models.base_model imprt BaseModel
+from models.base_model import BaseModel
 
 
 class TestBaseModel(unittest.TestCase):
-    """Test cases for BaseModel class."""
+    """test cases for the BaseModel class."""
 
     def test_instance(self):
-        """Test that the basemodel instance can be created."""
+        """Test that a BaseModel instance can be created."""
         instance = BaseModel()
         self.assertIsNotNone(instance)
 
 
-if __name__ == "__main__:
+if __name__ == "__main__":
     unittest.main()
+    

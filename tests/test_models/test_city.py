@@ -1,10 +1,20 @@
 #!/usr/bin/python3
-"""Testfile for city class"""
+"""Unittests for City class."""
 
 
-class City:
-    """A simple placeholder for the city model."""
+import unittest
+from models.city import City
 
-    def __init__(self):
-        """Initialize the city instance."""
-        pass
+
+class TestCity(unittest.TestCase):
+    """Test cases for the City class."""
+
+    def test_instance(self):
+        """Test that a City instance can be created."""
+        instance = City()
+        self.assertIsNotNone(instance)
+
+
+if __name__ == "__main__":
+    unittest.main()
+    
