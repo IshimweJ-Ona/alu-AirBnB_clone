@@ -6,9 +6,22 @@ import shlex
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 # Mapping class names to actual classes
-classes = {"BaseModel": BaseModel, "User": User}
+classes = {
+    "BaseModel": BaseModel,
+    "User": User,
+    "State": State,
+    "City": City,
+    "Amenity": Amenity,
+    "Place": Place,
+    "Review": Review
+}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -38,6 +51,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         instance = classes[arg]()
+        storage.new(instance)  # Register instance in storage
         storage.save()
         print(instance.id)
 
@@ -88,7 +102,7 @@ class HBNBCommand(cmd.Cmd):
             if args[0] not in classes:
                 print("** class doesn't exist **")
                 return
-            result= [str(obj) for k, obj in all_objs.items() if k.startswith(args[0] + ".")]
+            result = [str(obj) for k, obj in all_objs.items() if k.startswith(args[0] + ".")]
         else:
             result = [str(obj) for obj in all_objs.values()]
         print(result)
@@ -119,17 +133,14 @@ class HBNBCommand(cmd.Cmd):
 
         obj = all_objs[key]
         attr_name = args[2]
-        attr_value = args[3]
+        attr_value = args[3].strip('"')  # Remove quotes if any
 
         # Cast value to correct type if possible
         try:
-            if attr_value.isdigit():
+            if "." in attr_value:
+                attr_value = float(attr_value)
+            elif attr_value.isdigit():
                 attr_value = int(attr_value)
-            else:
-                try:
-                    attr_value = float(attr_value)
-                except ValueError:
-                    attr_value = attr_value.strip('"')
         except Exception:
             pass
 

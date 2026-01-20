@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """Defines the Review class"""
 
+from models.base_model import BaseModel
 
-class Review:
-    """A simple placeholder for the review model."""
 
-    def __init__(self):
-        """Initialize Review instance."""
-        pass
+class Review(BaseModel):
+    place_id = ""
+    user_id = ""
+    text = ""

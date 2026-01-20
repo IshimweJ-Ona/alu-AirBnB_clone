@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """Defines the State class"""
 
+from models.base_model import BaseModel
 
-class State:
-    """Initialize State instance."""
-    pass
+
+class State(BaseModel):
+    name = ""

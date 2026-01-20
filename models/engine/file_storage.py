@@ -7,6 +7,11 @@ serialization and deserialization.
 import json
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
@@ -17,6 +22,17 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = {}  # dictionay storing all objects
+
+    # Class mapping
+    classes = {
+        "BaseModel": BaseModel,
+        "User": User,
+        "State": State,
+        "City": City,
+        "Amenity": Amenity,
+        "Place": Place,
+        "Review": Review
+    }
 
     def all(self):
         """Return the dictionary __objects."""
@@ -31,25 +47,19 @@ class FileStorage:
         FileStorage.__objects[key] = obj
 
     def save(self):
-        """Serialize __objects to the json file.
-        Convert each object to a dictionary using to_dict().
-        """
-        obj_dict = {key: obj.to_dict() for key, 
-                    obj in FileStorage.__objects.items()}
-        with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
-            json.dump(obj_dict, f, indent=4)
+        """Serialize __objects to the JSON file."""
+        with open(FileStorage.__file_path, "w") as f:
+            json.dump({k: v.to_dict() for k, v in FileStorage.__objects.items()}, f, indent=4)
 
     def reload(self):
-        """Deserialize the JSON file to __objects if it exists.
-        If the file doesn't exist do nothing.
-        """
+        """Deserialize the JSON file to __objects (if it exists)"""
         try:
-            with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
-                obj_dict = json.load(f)
-                # recreates objects from dictionary
-                for key, value in obj_dict.items():
-                    class_name = value["__class__"]
-                    if class_name == "BaseModel":
-                        FileStorage.__objects[key] = BaseModel(**value)
+            with open(FileStorage.__file_path, "r") as f:
+                data = json.load(f)
+                for key, value in data.items():
+                    class_name = value.get("__class__")
+                    cls = self.classes.get(class_name)
+                    if cls:
+                        FileStorage.__objects[key] = cls(**value)
         except FileNotFoundError:
-            pass  # if file doesn't exist
+            pass

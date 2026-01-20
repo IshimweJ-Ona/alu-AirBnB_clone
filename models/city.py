@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 """Defines City class"""
 
+from models.base_model import BaseModel
 
-class City:
-    """A simple placeholder for the City model."""
 
-    def __init__(self):
-        """Initialize City instance."""
-        pass
+class City(BaseModel):
+    state_id = ""
+    name = ""
