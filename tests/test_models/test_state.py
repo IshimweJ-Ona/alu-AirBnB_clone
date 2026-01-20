@@ -10,9 +10,9 @@ class TestState(unittest.TestCase):
 
     def test_instance(self):
         """Test that a State instance can be created."""
-        state = State()
-        self.assertIsNone(state)
-        self.assertIsInstance(state, State)
+        instance = State()
+        self.assertIsNone(instance)
+        self.assertIsInstance(instance, State)
 
     def test_attributes(self):
         """Test default public attributes of State."""
