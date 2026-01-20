@@ -24,6 +24,9 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = self.created_at
 
+            from models import storage
+            storage.new(self)
+
     def __str__(self):
         """Return the string representation of the instance."""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
@@ -31,6 +34,8 @@ class BaseModel:
     def save(self):
         """Update the updated_at attribute with the current datetime."""
         self.updated_at = datetime.now()
+        from models import storage
+        storage.save()  # update the file
 
     def to_dict(self):
         """Return a dictionary representation of the instance."""

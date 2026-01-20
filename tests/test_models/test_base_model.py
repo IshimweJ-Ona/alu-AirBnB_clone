@@ -4,6 +4,7 @@
 import unittest
 from datetime import datetime
 from models.base_model import BaseModel
+from models import storage
 
 
 class TestBaseModel(unittest.TestCase):
@@ -64,6 +65,11 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(instance.id, new_instance.id)
         self.assertEqual(instance.created_at, new_instance.created_at)
         self.assertEqual(instance.updated_at, new_instance.updated_at)
+
+    def test_new_object_registered_in_storage(self):
+        instance = BaseModel()
+        key = f"BaseModel.{instance.id}"
+        self.assertIn(key, storage.all())
 
 
 if __name__ == "__main__":
