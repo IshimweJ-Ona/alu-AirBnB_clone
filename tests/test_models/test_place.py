@@ -10,8 +10,21 @@ class TestPlace(unittest.TestCase):
 
     def test_instance(self):
         """Test that a Place instance can be created."""
-        instance = Place()
-        self.assertIsNotNone(instance)
+        place = Place()
+        self.assertEqual(place.city_id, "")
+        self.assertEqual(place.user_id, "")
+        self.assertEqual(place.name, "")
+        self.assertEqual(place.description, "")
+        # Integers
+        self.assertEqual(place.number_rooms, 0)
+        self.assertEqual(place.number_bathrooms, 0)
+        self.assertEqual(place.max_guest, 0)
+        self.assertEqual(place.price_by_night, 0)
+        # Floats
+        self.assertEqual(place.latitude, 0.0)
+        self.assertEqual(place.longitude, 0.0)
+        # Lists
+        self.assertEqual(place.amenity_ids, [])
 
 
 if __name__ == "__main__":

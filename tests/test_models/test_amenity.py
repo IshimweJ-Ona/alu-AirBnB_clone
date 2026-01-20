@@ -13,6 +13,10 @@ class TestAmenity(unittest.TestCase):
         instance = Amenity()
         self.assertIsNotNone(instance)
 
+    def test_attributes(self):
+        amenity = Amenity()
+        self.assertEqual(amenity.name, "")
+
 
 if __name__ == "__main__":
     unittest.main()

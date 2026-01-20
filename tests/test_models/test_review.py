@@ -13,6 +13,12 @@ class TestReview(unittest.TestCase):
         instance = Review()
         self.assertIsNotNone(instance)
 
+    def test_attributes(self):
+        review = Review()
+        self.assertEqual(review.place_id, "")
+        self.assertEqual(review.user_id, "")
+        self.assertEqual(review.text, "")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -102,7 +102,8 @@ class HBNBCommand(cmd.Cmd):
             if args[0] not in classes:
                 print("** class doesn't exist **")
                 return
-            result = [str(obj) for k, obj in all_objs.items() if k.startswith(args[0] + ".")]
+            result = [str(obj) for k, obj in all_objs.items()
+                      if k.startswith(args[0] + ".")]
         else:
             result = [str(obj) for obj in all_objs.values()]
         print(result)

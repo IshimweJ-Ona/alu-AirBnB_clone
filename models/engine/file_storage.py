@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Defines the FileStorage class for JSON 
+Defines the FileStorage class for JSON
 serialization and deserialization.
 """
 
@@ -16,12 +16,12 @@ from models.review import Review
 
 class FileStorage:
     """
-    Serialization instances to a json file and 
-    deserialise json file to instances.
+    Serialization instances to a json file and
+    deserialization from json file to instances.
     """
 
     __file_path = "file.json"
-    __objects = {}  # dictionay storing all objects
+    __objects = {}  # dictionary storing all objects
 
     # Class mapping
     classes = {
@@ -37,7 +37,7 @@ class FileStorage:
     def all(self):
         """Return the dictionary __objects."""
         return FileStorage.__objects
-    
+
     def new(self, obj):
         """
         Add a new object to __objects dict
@@ -49,10 +49,12 @@ class FileStorage:
     def save(self):
         """Serialize __objects to the JSON file."""
         with open(FileStorage.__file_path, "w") as f:
-            json.dump({k: v.to_dict() for k, v in FileStorage.__objects.items()}, f, indent=4)
+            json.dump({k: v.to_dict()
+                       for k, v in FileStorage.__objects.items()},
+                      f, indent=4)
 
     def reload(self):
-        """Deserialize the JSON file to __objects (if it exists)"""
+        """Deserialize the JSON file to __objects (if it exists)."""
         try:
             with open(FileStorage.__file_path, "r") as f:
                 data = json.load(f)

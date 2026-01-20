@@ -52,6 +52,5 @@ class TestUser(unittest.TestCase):
         self.assertEqual(reloaded_user.email, "test@mail.com")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
-    
