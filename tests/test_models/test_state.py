@@ -11,7 +11,7 @@ class TestState(unittest.TestCase):
     def test_instance(self):
         """Test that a State instance can be created."""
         instance = State()
-        self.assertIsNone(instance)
+        self.assertIsNotNone(instance)
         self.assertIsInstance(instance, State)
 
     def test_attributes(self):
