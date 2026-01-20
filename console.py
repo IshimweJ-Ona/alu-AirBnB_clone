@@ -2,11 +2,13 @@
 """Command interpreter for the AirBnB clone project."""
 
 import cmd
+import shlex
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 
 # Mapping class names to actual classes
-classes = {"BaseModel": BaseModel}
+classes = {"BaseModel": BaseModel, "User": User}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -41,7 +43,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         """Print the string representation of an instance"""
-        args = arg.split()
+        args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
             return
@@ -60,7 +62,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """Delete an instance based on class name and id"""
-        args = arg.split()
+        args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
             return
@@ -80,19 +82,20 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Print all string representations of instances"""
+        args = shlex.split(arg)
         all_objs = storage.all()
-        if arg:
-            if arg not in classes:
+        if args:
+            if args[0] not in classes:
                 print("** class doesn't exist **")
                 return
-            result = [str(obj) for k, obj in all_objs.items() if k.startswith(arg + ".")]
+            result= [str(obj) for k, obj in all_objs.items() if k.startswith(args[0] + ".")]
         else:
             result = [str(obj) for obj in all_objs.values()]
         print(result)
 
     def do_update(self, arg):
         """Update an instance by adding or updating attribute"""
-        args = arg.split()
+        args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
             return

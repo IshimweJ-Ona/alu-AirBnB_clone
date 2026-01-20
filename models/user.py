@@ -1,10 +1,13 @@
 #!/usr/bin/python3
 """Defines the User class"""
 
+from models.base_model import BaseModel
 
-class User:
-    """A simple placeholder for the user model."""
 
-    def __init__(self):
-        """Initialize User instance."""
-        pass
+class User(BaseModel):
+    """User model"""
+    
+    email = ""
+    password = ""
+    first_name = ""
+    last_name = ""
