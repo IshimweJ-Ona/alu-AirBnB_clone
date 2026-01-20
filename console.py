@@ -43,7 +43,7 @@ class HBNBCommand(cmd.Cmd):
         """Print instance representation"""
         args = arg.split()
         if len(args) == 0:
-            print("** class name is missing **")
+            print("** class name  missing **")
             return
         if args[0] not in classes:
             print("** class doesn't exist **")
@@ -68,7 +68,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         if len(args) == 1:
-            print("** instance id missing **")
+            print("** instance id is missing **")
             return
         key = f"{args[0]}.{args[1]}"
         all_objs = storage.all()
@@ -101,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
             print("** clas doesn't exist **")
             return
         if len(args) == 1:
-            print("** instance id missing **")
+            print("** instance id is missing **")
             return
         key = f"{args[0]}.{args[1]}"
         all_objs = storage.all()
