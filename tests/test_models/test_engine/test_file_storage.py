@@ -12,10 +12,10 @@ class TestFileStorage(unittest.TestCase):
     """Test cases for the FileStorage class."""
 
     def setUp(self):
-        """Clean up before each test"""
+        """Clean up before each test."""
         self.file_path = "file.json"
         # Clear objects and remove file if exists
-        setattr(FileStorage, "_FileStorage__objects", {})
+        storage.__dict__['FileStorage__objetcs'] = {}
         if os.path.exists(self.file_path):
             os.remove(self.file_path)
         self.storage = FileStorage()
@@ -24,9 +24,10 @@ class TestFileStorage(unittest.TestCase):
         """Clean up after each test."""
         if os.path.exists(self.file_path):
             os.remove(self.file_path)
+        storage.__dict__['FileStorage__objetcs'] = {}
 
-    def test_isntance_creation(self):
-        """Test that filestorage instance can be created."""
+    def test_instance_creation(self):
+        """Test that FileStorage instance can be created."""
         self.assertIsNotNone(self.storage)
 
     def test_new_and_all(self):
@@ -56,8 +57,8 @@ class TestFileStorage(unittest.TestCase):
         self.storage.new(model)
         self.storage.save()
 
-        # Clear objects and reload
-        setattr(FileStorage, "FileStorage__objects", {})
+        # Clear __objects and reload
+        storage.__dict__['FileStorage__objetcs'] = {}
         self.storage.reload()
         all_objs = self.storage.all()
         self.assertIn(key, all_objs)
